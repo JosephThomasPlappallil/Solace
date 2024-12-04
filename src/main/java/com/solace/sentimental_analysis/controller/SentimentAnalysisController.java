@@ -49,7 +49,7 @@ public class SentimentAnalysisController {
 
             // Add index metadata and document data to the bulk request
             try {
-                bulkRequestBuilder.append("{\"index\":{\"_index\":\"demo1\"}}\n")
+                bulkRequestBuilder.append("{\"index\":{\"_index\":\"sentiments\"}}\n")
                         .append(new ObjectMapper().writeValueAsString(enrichedComment))
                         .append("\n");
             } catch (JsonProcessingException e) {
@@ -73,7 +73,7 @@ public class SentimentAnalysisController {
             ObjectMapper objectMapper = new ObjectMapper();
 
             // Metadata JSON for Elasticsearch bulk API
-            String metadata = "{ \"index\": { \"_index\": \"demo1\" } }";
+            String metadata = "{ \"index\": { \"_index\": \"sentiments\" } }";
 
             // Serialize the document (data) as JSON
             String data = objectMapper.writeValueAsString(enrichedComment);
