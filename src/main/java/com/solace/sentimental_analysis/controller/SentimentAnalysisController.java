@@ -1,7 +1,8 @@
 package com.solace.sentimental_analysis.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,9 +37,15 @@ public class SentimentAnalysisController {
         List<Map<String, Object>> comments = commentService.fetchComments();
         StringBuilder bulkRequestBuilder = new StringBuilder();
 
-        for (Map<String, Object> comment : comments) {
+        // Loop through each comment and process them
+        for (int i = 0; i < comments.size(); i++) {
+            Map<String, Object> comment = comments.get(i);
             String message = (String) comment.get("message");
             String sentiment = sentimentAnalyzer.analyzeSentiment(message);
+
+            // Calculate the created_time based on the current index (subtracting minutes)
+            String modifiedDateTime = LocalDateTime.now().minusMinutes(i).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            comment.put("created_time", modifiedDateTime);
 
             // Add sentiment type to the original comment data
             Map<String, Object> enrichedComment = new HashMap<>(comment);
@@ -61,6 +68,7 @@ public class SentimentAnalysisController {
 
         return bulkRequestBuilder.toString();
     }
+
 
     /**
      * Publishes messages to the appropriate Solace topic based on sentiment type.
