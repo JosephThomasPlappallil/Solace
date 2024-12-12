@@ -18,9 +18,9 @@ public class PubSubPlusBroker {
 
     private boolean isConnected = false;
 
-    private static final String BROKER_URL = "tcps://mr-connection-ikm5vks8m60.messaging.solace.cloud:55443";
+    private static final String BROKER_URL = "tcps://mr-connection-rpzmx3cxlc3.messaging.solace.cloud:55443";
     private static final String USERNAME = "solace-cloud-client";
-    private static final String PASSWORD = "mketc7oaji4jn6306jvtfscb0c";
+    private static final String PASSWORD = "8e7er23lsbloehopq4vcakms5i";
     private static final String MESSAGE_VPN = "sentimentalanalysis";
 
     @PostConstruct
